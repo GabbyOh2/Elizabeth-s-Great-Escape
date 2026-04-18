@@ -22,5 +22,30 @@
             EJS_gameUrl = "my_project.gba";
         </script>
         <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+        <script>
+  
+    setTimeout(() => {
+        const canvas = document.querySelector('canvas');
+        if (canvas) {
+            let msg = document.createElement('div');
+            msg.innerText = 'Press any button to load the game!';
+            msg.style.position = 'absolute';
+            msg.style.top = '50%';
+            msg.style.left = '50%';
+            msg.style.transform = 'translate(-50%, -50%)';
+            msg.style.background = 'rgba(0,0,0,0.7)';
+            msg.style.color = 'white';
+            msg.style.padding = '10px 20px';
+            msg.style.borderRadius = '20px';
+            msg.style.zIndex = '1000';
+            msg.style.pointerEvents = 'none'; 
+            
+            canvas.parentElement.style.position = 'relative';
+            canvas.parentElement.appendChild(msg);
+            
+            canvas.addEventListener('click', () => msg.remove(), { once: true });
+        }
+    }, 1000);
+</script>
     </body>
 </html>
