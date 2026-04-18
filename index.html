@@ -1,6 +1,5 @@
 <html>
     <head>
-        <!--HTML file auto generated using EmulatorJS codehelper-->
         <style>
             body, html {
                 margin: 0;
@@ -27,28 +26,6 @@
     setTimeout(() => {
         const canvas = document.querySelector('canvas');
         if (canvas) {
-         
-            let msg = document.createElement('div');
-            msg.innerText = '🎮 Click or press any key to load!';
-            msg.style.position = 'absolute';
-            msg.style.top = '50%';
-            msg.style.left = '50%';
-            msg.style.transform = 'translate(-50%, -50%)';
-            msg.style.background = 'rgba(0,0,0,0.85)';
-            msg.style.color = 'white';
-            msg.style.padding = '12px 24px';
-            msg.style.borderRadius = '30px';
-            msg.style.fontFamily = 'Arial, sans-serif';
-            msg.style.fontSize = '16px';
-            msg.style.zIndex = '1000';
-            msg.style.pointerEvents = 'none';
-            msg.style.border = '2px solid #61289a';
-            msg.style.boxShadow = '0 0 15px rgba(97,40,154,0.5)';
-            
-            canvas.parentElement.style.position = 'relative';
-            canvas.parentElement.appendChild(msg);
-            
-            
             function startGame() {
                 if (msg && msg.parentElement) {
                     msg.remove();
