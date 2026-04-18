@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>My GBA Game Gallery</title>
+    <title>Play My GBA Game</title>
     <style>
         * {
             margin: 0;
@@ -12,148 +12,175 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .gallery-container {
-            max-width: 1200px;
-            width: 100%;
+        .gameboy-container {
+            background: linear-gradient(145deg, #8b8c8f 0%, #6b6c6f 100%);
+            border-radius: 35px;
+            padding: 25px 20px 20px 20px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
         }
         
-        h1 {
-            text-align: center;
-            color: #fff;
-            margin-bottom: 10px;
-            font-size: 2.5rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-        
-        .subtitle {
-            text-align: center;
-            color: #a8dadc;
-            margin-bottom: 40px;
-            font-size: 1.1rem;
-        }
-        
-        .game-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-        
-        .game-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            background: rgba(255,255,255,0.15);
-        }
-        
-        .game-card.selected {
-            border: 2px solid #4ecdc4;
-            background: rgba(78,205,196,0.1);
-        }
-        
-        .game-title {
-            color: #fff;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-        }
-        
-        .game-description {
-            color: #ccc;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-        
-        .game-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .tag {
-            background: rgba(78,205,196,0.3);
-            color: #4ecdc4;
-            padding: 4px 10px;
+        .screen-bezel {
+            background: #2a2a2a;
             border-radius: 12px;
-            font-size: 0.75rem;
-        }
-        
-        .player-container {
-            background: #2a2a3e;
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 20px;
-            display: none;
-        }
-        
-        .player-container.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .gameboy-frame {
-            background: #8b8c8f;
-            border-radius: 30px;
-            padding: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        
-        .screen-container {
-            background: #1a1a1a;
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            padding: 12px;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
         }
         
         canvas {
             display: block;
-            width: 100%;
-            max-width: 480px;
-            height: auto;
+            width: 480px;
+            height: 320px;
             margin: 0 auto;
             border-radius: 5px;
             background: #000;
+            box-shadow: 0 0 0 2px #4a4a4a;
         }
         
-        .controls {
+        .button-area {
             display: flex;
-            justify-content: center;
-            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 20px;
-            flex-wrap: wrap;
+            padding: 0 10px;
         }
         
-        button {
-            background: #4ecdc4;
-            border: none;
-            color: #1a1a2e;
-            padding: 10px 20px;
+        .dpad {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+        
+        .dpad-button {
+            position: absolute;
+            background: #3a3a3a;
             border-radius: 8px;
-            font-size: 1rem;
+            box-shadow: 0 3px 0 #1a1a1a;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .action-btn {
+            background: #5a5a5a;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: bold;
-            cursor: pointer;
-           
+            font-size: 20px;
+            color: #ddd;
+            box-shadow: 0 4px 0 #2a2a2a;
+        }
+        
+        .action-btn.a { background: #e74c3c; color: white; }
+        .action-btn.b { background: #3498db; color: white; }
+        
+        .label {
+            text-align: center;
+            margin-top: 15px;
+            color: #aaa;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 600px) {
+            canvas {
+                width: 100%;
+                height: auto;
+            }
+            .gameboy-container {
+                padding: 15px;
+                margin: 10px;
+            }
+            .button-area {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="gameboy-container">
+        <div class="screen-bezel">
+            <canvas id="gbaCanvas" width="240" height="160"></canvas>
+        </div>
+        <div class="button-area">
+            <div class="dpad">
+                <div style="position: relative; width: 80px; height: 80px; background: #3a3a3a; border-radius: 50%; box-shadow: 0 3px 0 #1a1a1a;">
+                    <div style="position: absolute; top: 50%; left: 0; right: 0; height: 25px; background: #4a4a4a; transform: translateY(-50%);"></div>
+                    <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 25px; background: #4a4a4a; transform: translateX(-50%);"></div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <div class="action-btn b">B</div>
+                <div class="action-btn a">A</div>
+            </div>
+        </div>
+        <div class="label">Game Boy Advance</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gbajs2@latest/gbajs2.min.js"></script>
+    
+    <script>
+        var canvas = document.getElementById('gbaCanvas');
+        
+        var gba = new GBAJS2();
+        gba.setCanvas(canvas);
+        
+        fetch('my_project.gba')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Game file not found. Make sure your .gba file is in the same folder as this HTML file.');
+                }
+                return response.arrayBuffer();
+            })
+            .then(data => {
+                gba.loadROM(new Uint8Array(data));
+                gba.start();
+                console.log('Game loaded successfully!');
+            })
+            .catch(error => {
+                console.error('Error loading game:', error);
+                document.body.innerHTML += '<div style="position:fixed; bottom:10px; left:10px; color:red; background:white; padding:10px;">Error: ' + error.message + '</div>';
+            });
+        
+        // Keyboard controls (optional - for testing on computer)
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'ArrowUp': gba.keyPress(0x40); break;
+                case 'ArrowDown': gba.keyPress(0x80); break;
+                case 'ArrowLeft': gba.keyPress(0x20); break;
+                case 'ArrowRight': gba.keyPress(0x10); break;
+                case 'z': case 'Z': gba.keyPress(0x01); break; // A button
+                case 'x': case 'X': gba.keyPress(0x02); break; // B button
+                case 'Enter': gba.keyPress(0x08); break; // Start
+                case 'Shift': gba.keyPress(0x04); break; // Select
+            }
+        });
+        
+        document.addEventListener('keyup', function(e) {
+            switch(e.key) {
+                case 'ArrowUp': gba.keyRelease(0x40); break;
+                case 'ArrowDown': gba.keyRelease(0x80); break;
+                case 'ArrowLeft': gba.keyRelease(0x20); break;
+                case 'ArrowRight': gba.keyRelease(0x10); break;
+                case 'z': case 'Z': gba.keyRelease(0x01); break;
+                case 'x': case 'X': gba.keyRelease(0x02); break;
+                case 'Enter': gba.keyRelease(0x08); break;
+                case 'Shift': gba.keyRelease(0x04); break;
+            }
+        });
+    </script>
+</body>
+</html>
